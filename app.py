@@ -52,4 +52,70 @@ with col2:
 st.dataframe(df.head())
 
 
+# ==========================================================
+# STEP 3 : DATA CLEANING
+# ==========================================================
+
+st.header("🧹 Data Cleaning")
+
+# Create a copy of original data
+clean_df = df.copy()
+
+# -----------------------------
+# Remove duplicate rows
+# -----------------------------
+duplicates = clean_df.duplicated().sum()
+clean_df.drop_duplicates(inplace=True)
+
+# -----------------------------
+# Fill missing Units with median
+# -----------------------------
+if "Units" in clean_df.columns:
+    clean_df["Units"] = clean_df["Units"].fillna(clean_df["Units"].median())
+
+# -----------------------------
+# Remove rows where Sales <= 0
+# -----------------------------
+if "Sales" in clean_df.columns:
+    clean_df = clean_df[clean_df["Sales"] > 0]
+
+# -----------------------------
+# Remove rows where Gross Profit is missing
+# -----------------------------
+if "Gross Profit" in clean_df.columns:
+    clean_df = clean_df.dropna(subset=["Gross Profit"])
+
+# -----------------------------
+# Standardize Product Name
+# -----------------------------
+if "Product Name" in clean_df.columns:
+    clean_df["Product Name"] = (
+        clean_df["Product Name"]
+        .astype(str)
+        .str.strip()
+        .str.title()
+    )
+
+# -----------------------------
+# Standardize Division
+# -----------------------------
+if "Division" in clean_df.columns:
+    clean_df["Division"] = (
+        clean_df["Division"]
+        .astype(str)
+        .str.strip()
+        .str.title()
+    )
+
+st.success("✅ Data Cleaning Completed Successfully")
+
+# Cleaning Summary
+summary = {
+    "Original Rows": df.shape[0],
+    "Rows After Cleaning": clean_df.shape[0],
+    "Duplicates Removed": duplicates,
+    "Missing Values Remaining": clean_df.isnull().sum().sum()
+}
+
+st.write(summary)
 
