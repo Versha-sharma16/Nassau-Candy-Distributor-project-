@@ -1,71 +1,52 @@
 import streamlit as st
 import pandas as pd
-
-st.title("🍬 Nassau Candy Dashboard")
-
-df = pd.read_csv("Nassau Candy Distributor.csv")
-
-st.write(df.head())
-
+import numpy as np
 import plotly.express as px
-import streamlit as st
-import pandas as pd
-import plotly.express as px
-
-# Page title
-st.title("Nassau Candy Distributor Analysis")
-
-# Load dataset
-df = pd.read_csv("Nassau Candy Distributor.csv")
+import plotly.graph_objects as go
 
 # -----------------------------
-# Data Cleaning
+# PAGE CONFIGURATION
 # -----------------------------
-st.header("1. Data Cleaning")
-# cleaning code...
-st.write(df.head())
+st.set_page_config(
+    page_title="Nassau Candy Distributor Analysis",
+    page_icon="🍬",
+    layout="wide"
+)
 
 # -----------------------------
-# EDA
+# TITLE
 # -----------------------------
-st.header("2. Exploratory Data Analysis")
-# summary statistics
-st.write(df.describe())
-
-# -----------------------------
-# Visualizations
-# -----------------------------
-st.header("3. Sales by Division")
-# create chart
-st.plotly_chart(fig)
-
-# -----------------------------
-# Profitability Analysis
-# -----------------------------
-st.header("4. Profitability Analysis")
-# show tables and charts
-
-# -----------------------------
-# Division Analysis
-# -----------------------------
-st.header("5. Division Analysis")
-
-# -----------------------------
-# Pareto Analysis
-# -----------------------------
-st.header("6. Pareto Analysis")
-
-# -----------------------------
-# Cost Structure Diagnostics
-# -----------------------------
-st.header("7. Cost Structure Diagnostics")
-
-# -----------------------------
-# Business Insights
-# -----------------------------
-st.header("8. Key Business Insights")
+st.title("🍬 Nassau Candy Distributor Analysis Dashboard")
 st.markdown("""
-- Insight 1
-- Insight 2
-- Insight 3
+### Internship Project
+**Business Objective:** Analyze product profitability, division performance,
+gross margins, Pareto contribution and cost structure.
 """)
+
+# -----------------------------
+# LOAD DATA
+# -----------------------------
+@st.cache_data
+def load_data():
+    df = pd.read_csv("Nassau Candy Distributor.csv")
+    return df
+
+
+
+st.header("📂 Dataset Preview")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.metric("Rows", df.shape[0])
+
+with col2:
+    st.metric("Columns", df.shape[1])
+
+st.dataframe(df.head())
+
+
+
+
+
+df = load_data()
