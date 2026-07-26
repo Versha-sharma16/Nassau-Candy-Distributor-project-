@@ -107,7 +107,7 @@ if "Division" in clean_df.columns:
         .str.title()
     )
 
-st.success("✅ Data Cleaning Completed Successfully")
+st.success("✅ Data Cleaning ")
 
 # Cleaning Summary
 summary = {
@@ -119,3 +119,41 @@ summary = {
 
 st.write(summary)
 
+# ==========================================================
+# STEP 4 : FEATURE ENGINEERING
+# ==========================================================
+
+st.header("⚙️ Feature Engineering")
+
+# Gross Margin %
+if "Sales" in clean_df.columns and "Gross Profit" in clean_df.columns:
+    clean_df["Gross Margin %"] = (
+        clean_df["Gross Profit"] / clean_df["Sales"]
+    ) * 100
+
+# Profit Per Unit
+if "Units" in clean_df.columns and "Gross Profit" in clean_df.columns:
+    clean_df["Profit Per Unit"] = (
+        clean_df["Gross Profit"] / clean_df["Units"]
+    )
+
+# Total Profit Contribution
+total_profit = clean_df["Gross Profit"].sum()
+
+clean_df["Profit Contribution %"] = (
+    clean_df["Gross Profit"] / total_profit
+) * 100
+
+st.success("✅ New Features Created")
+
+st.dataframe(
+    clean_df[
+        [
+            "Sales",
+            "Gross Profit",
+            "Gross Margin %",
+            "Profit Per Unit",
+            "Profit Contribution %"
+        ]
+    ].head()
+)
