@@ -428,7 +428,7 @@ fig = px.scatter(
     title="Cost vs Sales"
 )
 
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, use_container_width=True, key="cost_vs_sales")
 
 cost_heavy = clean_df[
     clean_df["Cost"] >
