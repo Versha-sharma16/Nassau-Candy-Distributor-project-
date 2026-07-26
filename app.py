@@ -157,3 +157,32 @@ st.dataframe(
         ]
     ].head()
 )
+
+# ==========================================================
+# STEP 5 : KPI DASHBOARD
+# ==========================================================
+
+st.header("📊 KPI Dashboard")
+
+total_sales = clean_df["Sales"].sum()
+total_profit = clean_df["Gross Profit"].sum()
+total_units = clean_df["Units"].sum()
+
+gross_margin = (
+    total_profit / total_sales
+) * 100
+
+products = clean_df["Product Name"].nunique()
+divisions = clean_df["Division"].nunique()
+
+c1, c2, c3 = st.columns(3)
+
+c1.metric("💰 Revenue", f"${total_sales:,.2f}")
+c2.metric("📈 Profit", f"${total_profit:,.2f}")
+c3.metric("📦 Units", f"{int(total_units):,}")
+
+c4, c5, c6 = st.columns(3)
+
+c4.metric("📊 Margin", f"{gross_margin:.2f}%")
+c5.metric("🛒 Products", products)
+c6.metric("🏢 Divisions", divisions)
