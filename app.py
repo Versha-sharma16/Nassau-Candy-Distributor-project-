@@ -7,7 +7,7 @@ df = pd.read_csv("Nassau Candy Distributor.csv")
 
 st.write(df.head())
 
-
+import plotly.express as px
 import streamlit as st
 import pandas as pd
 import plotly.express as px
