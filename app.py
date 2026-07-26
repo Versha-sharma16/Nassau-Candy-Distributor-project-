@@ -415,6 +415,8 @@ st.dataframe(
 # ==========================================================
 # STEP 11 : COST STRUCTURE DIAGNOSTICS
 # ==========================================================
+# STEP 11 : COST STRUCTURE DIAGNOSTICS
+# ==========================================================
 
 st.header("💸 Cost Structure Diagnostics")
 
