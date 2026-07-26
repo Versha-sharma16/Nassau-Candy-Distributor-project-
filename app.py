@@ -18,7 +18,7 @@ st.set_page_config(
 # -----------------------------
 st.title("🍬 Nassau Candy Distributor Analysis Dashboard")
 st.markdown("""
-### Internship Project
+### Data Analyst Project
 **Business Objective:** Analyze product profitability, division performance,
 gross margins, Pareto contribution and cost structure.
 """)
@@ -26,12 +26,18 @@ gross margins, Pareto contribution and cost structure.
 # -----------------------------
 # LOAD DATA
 # -----------------------------
+
+import streamlit as st
+import pandas as pd
+
+# Load dataset
+df = pd.read_csv("Nassau Candy Distributor.csv")
+
 @st.cache_data
 def load_data():
-    df = pd.read_csv("Nassau Candy Distributor.csv")
-    return df
+    return pd.read_csv("Nassau Candy Distributor.csv")
 
-
+df = load_data()
 
 st.header("📂 Dataset Preview")
 
@@ -47,6 +53,3 @@ st.dataframe(df.head())
 
 
 
-
-
-df = load_data()
